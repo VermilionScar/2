@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>致鱼塘塘主</title>
+    <title>叶轩琦</title>
     <style>
       body {
         margin: 0;
@@ -37,12 +37,35 @@
         display: none; /* Chrome Safari */
       }
     </style>
-  </head>
-  
-  
-  <body>
-    <p>鱼塘塘主是色批</p>
-    <p>这个人是个色批</p>
-    <p>天天看萝莉</p>
+</head>
+<body>
+  <div class="xxx" align="center">
+      <div style="color:rgb(255, 190, 190);font-size:50px">叶轩琦外号人称螳螂</color:></div>
+      <p>虽然不知道这个外号是哪来的</p>
+      <p>但是他螳螂的外号已经人尽皆知</p>
+      <p>同意轩琦是螳螂的请点击下方</p>
+      <button id="yxq" onclick="yxq1()">0</button>
+      <script>
+        function yxq1(){
+              let yxq2 = window.document.getElementById('yxq');
+              let yxq3 = parseInt(yxq2.innerText);
+              let tls = yxq3 +1;
+              yxq2.innerText = tls;
+              return
+          }
+      </script>
+      <form name="from1" id="form1" action="upload.php">
+        <label>螳螂是啥螳螂：</label>
+        <input type="radio" name="sex" value='tanglang'/><label>螳螂</label>
+        <input name="sex" type="radio" value="jingangtanglang"/><label>金刚螳螂</label>
+        <input name="sex" type="radio" value="sageluosi"/><label>萨格罗斯</label>
+        <br>
+        <label>螳螂在你们心目中：</label>
+        <input name='subject' type="checkbox" value="clever"><label>聪明</label>
+        <input name='subject' type="checkbox" value="zhizhang" ><label>智障</label>
+        <input name='subject' type="checkbox" value="annoying"/><label>烦人</label>
+        <input name='subject' type="checkbox" value="messenger"/><label>一班使者</label>
+        
+     </form>
   </body>
 </html>
