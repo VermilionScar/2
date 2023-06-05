@@ -1,71 +1,17 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>叶轩琦</title>
-    <style>
-      body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(135deg, #4bc0c8, #c779d0, #feac5e);
-      }
-      .box {
-        height: 80vh;
-        width: 70%;
-        max-width: 600px;
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 4px;
-        box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
-          rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
-        overflow-wrap: break-word;
-        word-wrap: break-word;
-        hyphens: auto;
-        text-align: justify;
-        color: #333;
-        font-size: 17px;
-        line-height: 1.7;
-        letter-spacing: 0.034em;
-        font-family: "思源黑体";
-        overflow-y: scroll;
-      }
-      .box::-webkit-scrollbar {
-        display: none; /* Chrome Safari */
-      }
-    </style>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎来到！</title>
+    <link rel="stylesheet" type="text/css" href="css01.css" media="all">
 </head>
 <body>
-  <div class="xxx" align="center">
-      <div style="color:rgb(255, 190, 190);font-size:50px">叶轩琦外号人称螳螂</color:></div>
-      <p>虽然不知道这个外号是哪来的</p>
-      <p>但是他螳螂的外号已经人尽皆知</p>
-      <p>同意轩琦是螳螂的请点击下方</p>
-      <button id="yxq" onclick="yxq1()">0</button>
-      <script>
-        function yxq1(){
-              let yxq2 = window.document.getElementById('yxq');
-              let yxq3 = parseInt(yxq2.innerText);
-              let tls = yxq3 +1;
-              yxq2.innerText = tls;
-              return
-          }
-      </script>
-      <form name="from1" id="form1" action="upload.php">
-        <label>螳螂是啥螳螂：</label>
-        <input type="radio" name="sex" value='tanglang'/><label>螳螂</label>
-        <input name="sex" type="radio" value="jingangtanglang"/><label>金刚螳螂</label>
-        <input name="sex" type="radio" value="sageluosi"/><label>萨格罗斯</label>
-        <br>
-        <label>螳螂在你们心目中：</label>
-        <input name='subject' type="checkbox" value="clever"><label>聪明</label>
-        <input name='subject' type="checkbox" value="zhizhang" ><label>智障</label>
-        <input name='subject' type="checkbox" value="annoying"/><label>烦人</label>
-        <input name='subject' type="checkbox" value="messenger"/><label>一班使者</label>
-        
-     </form>
-  </body>
+    <h1>嘿，这是我的个人网站！</h1>
+    <hr/>
+    <p>虽说我不知道我建立这个网站有何意义
+    <br>
+       但是我想自己尝试建立属于我个人的一个网站！</p>
+</body>
 </html>
