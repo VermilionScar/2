@@ -1,0 +1,15 @@
+.image-gallery {
+    display: flex;          /* 使用Flex布局 */
+    flex-wrap: wrap;        /* 换行显示（可选，超出宽度自动换行） */
+    gap: 20px;              /* 图片间距 */
+    justify-content: center;/* 水平居中对齐 */
+    padding: 20px;          /* 容器内边距 */
+}
+
+/* 图片基础样式 */
+.image-gallery img {
+    width: 250px;           /* 固定图片宽度 */
+    height: 250px;          /* 固定图片高度（可根据需求调整） */
+    object-fit: cover;      /* 保持比例填充容器（避免变形） */
+    border-radius: 8px;     /* 圆角效果（可选） */
+}
