@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>先行体验版</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #3498db;
+        --secondary-color: #2ecc71;
+        --accent-color: #e74c3c;
+        --dark-color: #2c3e50;
+        --light-color: #ecf0f1;
+        --text-color: #333;
+        --border-radius: 12px;
+        --shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 20px;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 30px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #3498db, #2ecc71, #3498db);
+        z-index: -1;
+        opacity: 0.9;
+      }
+
+      h1 {
+        font-size: 2.8rem;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .subtitle {
+        font-size: 1.3rem;
+        opacity: 0.9;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 30px;
+        background: white;
+        padding: 25px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+      }
+
+      .search-container {
+        display: flex;
+        flex: 1;
+        min-width: 300px;
+        position: relative;
+        border-radius: 50px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .search-container input {
+        width: 100%;
+        padding: 15px 25px;
+        border: none;
+        font-size: 1.1rem;
+        background: #f8f9fa;
+        transition: var(--transition);
+      }
+
+      .search-container input:focus {
+        outline: none;
+        background: white;
+      }
+
+      .search-container button {
+        padding: 0 25px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: var(--transition);
+      }
+
+      .search-container button:hover {
+        background: #2980b9;
+      }
+
+      .date-filter {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: white;
+        padding: 0 15px;
+        border-radius: 50px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .date-filter label {
+        font-weight: 600;
+        color: var(--dark-color);
+      }
+
+      .date-filter input {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+
+      .gallery-container {
+        position: relative;
+        min-height: 600px;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+        margin-bottom: 30px;
+      }
+
+      .image-card {
+        background: white;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        position: relative;
+        cursor: pointer;
+      }
+
+      .image-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .image-placeholder {
+        width: 100%;
+        height: 220px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8f9fa;
+      }
+
+      .thumbnail {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.3s ease;
+      }
+
+      .image-card:hover .thumbnail {
+        transform: scale(1.05);
+      }
+
+      .image-info {
+        padding: 18px;
+      }
+
+      .image-title {
+        font-weight: 700;
+        margin-bottom: 8px;
+        font-size: 1.15rem;
+        color: var(--dark-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .image-id {
+        font-size: 0.9rem;
+        color: #7f8c8d;
+        background: #f1f2f6;
+        padding: 3px 8px;
+        border-radius: 4px;
+      }
+
+      .image-meta {
+        color: #666;
+        font-size: 0.95rem;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .image-date {
+        color: #3498db;
+        font-weight: 500;
+      }
+
+      .pagination {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+      }
+
+      .page-btn {
+        padding: 10px 18px;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: var(--transition);
+        min-width: 45px;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .page-btn:hover {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
+
+      .page-btn.active {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+        box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+      }
+
+      .stats {
+        text-align: center;
+        margin-top: 20px;
+        color: #666;
+        font-size: 1rem;
+        padding: 15px;
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #f8f9fa;
+        padding: 8px 15px;
+        border-radius: 30px;
+      }
+
+      .loading {
+        text-align: center;
+        padding: 30px;
+        color: #666;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .loading.visible {
+        opacity: 1;
+      }
+
+      .loader {
+        width: 45px;
+        height: 45px;
+        border: 5px solid rgba(52, 152, 219, 0.2);
+        border-top: 5px solid var(--primary-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      #sentinel {
+        height: 1px;
+        width: 100%;
+        margin: 20px 0;
+      }
+
+      /* 图片详情模态框样式 */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .modal.active {
+        display: flex;
+        opacity: 1;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: var(--border-radius);
+        width: 90%;
+        max-width: 900px;
+        max-height: 90vh;
+        overflow: auto;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        transform: translateY(20px);
+        transition: transform 0.4s ease;
+      }
+
+      .modal.active .modal-content {
+        transform: translateY(0);
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background: var(--primary-color);
+        color: white;
+      }
+
+      .modal-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.8rem;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: var(--transition);
+      }
+
+      .close-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .modal-body {
+        padding: 30px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+      }
+
+      .modal-image {
+        background: #f8f9fa;
+        border-radius: var(--border-radius);
+        height: 350px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .modal-image img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      .modal-details {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .detail-item {
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .detail-label {
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 8px;
+        font-size: 1.1rem;
+      }
+
+      .detail-value {
+        color: #555;
+        line-height: 1.7;
+      }
+
+      .modal-footer {
+        padding: 20px;
+        display: flex;
+        justify-content: flex-end;
+        background: #f8f9fa;
+        border-top: 1px solid #eee;
+      }
+
+      .action-btn {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .download-btn {
+        background: var(--secondary-color);
+        color: white;
+      }
+
+      .download-btn:hover {
+        background: #27ae60;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(46, 204, 113, 0.3);
+      }
+
+      @media (max-width: 992px) {
+        .modal-body {
+          grid-template-columns: 1fr;
+        }
+
+        .modal-image {
+          height: 300px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .gallery {
+          grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        }
+
+        .controls {
+          flex-direction: column;
+        }
+
+        .search-container {
+          min-width: 100%;
+        }
+
+        .date-filter {
+          width: 100%;
+        }
+
+        header {
+          padding: 25px 15px;
+        }
+
+        h1 {
+          font-size: 2.3rem;
+        }
+
+        .modal-content {
+          width: 95%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .gallery {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .stat-item {
+          font-size: 0.9rem;
+        }
+
+        .modal-header {
+          padding: 15px;
+        }
+
+        .modal-title {
+          font-size: 1.3rem;
+        }
+
+        .modal-body {
+          padding: 20px;
+          gap: 20px;
+        }
+
+        .date-filter {
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 15px;
+        }
+      }
+
+      .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 25px;
+        background: var(--secondary-color);
+        color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        z-index: 2000;
+        transform: translateX(150%);
+        transition: transform 0.3s ease;
+      }
+
+      .notification.show {
+        transform: translateX(0);
+      }
+
+      .error {
+        background: var(--accent-color);
+      }
+
+      .debug-panel {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: var(--shadow);
+      }
+
+      .debug-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .debug-toggle {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 30px;
+        cursor: pointer;
+      }
+
+      .debug-content {
+        display: none;
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: var(--border-radius);
+        font-family: monospace;
+        max-height: 200px;
+        overflow: auto;
+        font-size: 0.9rem;
+      }
+
+      .debug-content.show {
+        display: block;
+      }
+
+      /* 错误提示样式优化 */
+      .thumbnail-error {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #6c757d;
+        text-align: center;
+        padding: 15px;
+      }
+
+      .thumbnail-error i {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: var(--accent-color);
+      }
+
+      .thumbnail-error div {
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1><i class="fas fa-images"></i> 先行体验版</h1>
+        <p class="subtitle">
+          给ypx体验一下，下面显示不出来很正常，因为我只丢了两百张图片
+        </p>
+      </header>
+      <div class="debug-panel">
+        <div class="debug-header">
+          <h3>调试信息</h3>
+          <button class="debug-toggle" id="toggleDebug">显示调试信息</button>
+        </div>
+        <div class="debug-content" id="debugContent">
+          <!-- 调试信息将在这里显示 -->
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="search-container">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="输入图片ID、文件名或日期搜索..."
+          />
+          <button id="searchBtn"><i class="fas fa-search"></i> 搜索</button>
+        </div>
+        <div class="date-filter">
+          <label for="dateFilter"
+            ><i class="fas fa-calendar-alt"></i> 按日期筛选:</label
+          >
+          <input type="date" id="dateFilter" />
+          <button id="clearDateFilter">
+            <i class="fas fa-times"></i> 清除
+          </button>
+        </div>
+      </div>
+
+      <div class="gallery-container">
+        <div class="gallery" id="imageGallery">
+          <!-- 图片将通过JavaScript动态加载 -->
+        </div>
+
+        <div id="sentinel"></div>
+
+        <div class="loading" id="loadingIndicator">
+          <div class="loader"></div>
+          正在加载图片，请稍候...
+        </div>
+      </div>
+
+      <div class="pagination" id="pagination">
+        <!-- 分页将通过JavaScript动态生成 -->
+      </div>
+
+      <div class="stats" id="stats">
+        <div class="stat-item">
+          <i class="fas fa-images"></i>
+          <span>总图片数: <span id="totalImages">0</span></span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-filter"></i>
+          <span>当前显示: <span id="filteredImages">0</span> 张</span>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-calendar"></i>
+          <span>日期筛选: <span id="dateFilterStatus">未启用</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 图片详情模态框 -->
+    <div class="modal" id="imageModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title" id="modalTitle">图片详情</div>
+          <button class="close-btn" id="closeModal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-image" id="modalImage">
+            <div class="loader"></div>
+          </div>
+          <div class="modal-details">
+            <div class="detail-item">
+              <div class="detail-label">图片ID</div>
+              <div class="detail-value" id="detailId">#0000</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">文件名</div>
+              <div class="detail-value" id="detailFilename">未命名</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">尺寸</div>
+              <div class="detail-value" id="detailDimensions">0 × 0 像素</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">文件大小</div>
+              <div class="detail-value" id="detailSize">0 KB</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">拍摄日期</div>
+              <div class="detail-value" id="detailDate">2023-01-01</div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="action-btn download-btn" id="downloadBtn">
+            <i class="fas fa-download"></i> 下载原图
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+      // 配置信息
+      const OSS_BASE_URL = "https://ye1image.oss-cn-chengdu.aliyuncs.com";
+      const JSON_INDEX_URL = `${OSS_BASE_URL}/json/index.json`;
+      const THUMBNAILS_URL = `${OSS_BASE_URL}/thumbnails/`;
+      const ORIGINAL_IMAGES_URL = `${OSS_BASE_URL}/images/`;
+
+      // 全局变量
+      const IMAGES_PER_PAGE = 24;
+      let currentPage = 1;
+      let currentSearch = "";
+      let currentDateFilter = "";
+      let allImages = [];
+      let filteredImages = [];
+      let isLoading = false;
+      let totalImageCount = 0;
+
+      // DOM元素
+      const galleryElement = document.getElementById("imageGallery");
+      const paginationElement = document.getElementById("pagination");
+      const statsElement = document.getElementById("stats");
+      const totalImagesElement = document.getElementById("totalImages");
+      const filteredImagesElement = document.getElementById("filteredImages");
+      const dateFilterStatus = document.getElementById("dateFilterStatus");
+      const loadingElement = document.getElementById("loadingIndicator");
+      const searchInput = document.getElementById("searchInput");
+      const searchBtn = document.getElementById("searchBtn");
+      const dateFilter = document.getElementById("dateFilter");
+      const clearDateFilter = document.getElementById("clearDateFilter");
+      const sentinelElement = document.getElementById("sentinel");
+      const imageModal = document.getElementById("imageModal");
+      const closeModal = document.getElementById("closeModal");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalImage = document.getElementById("modalImage");
+      const detailId = document.getElementById("detailId");
+      const detailFilename = document.getElementById("detailFilename");
+      const detailDimensions = document.getElementById("detailDimensions");
+      const detailSize = document.getElementById("detailSize");
+      const detailDate = document.getElementById("detailDate");
+      const downloadBtn = document.getElementById("downloadBtn");
+      const notificationElement = document.getElementById("notification");
+      const debugContent = document.getElementById("debugContent");
+      const toggleDebugBtn = document.getElementById("toggleDebug");
+
+      // 初始化
+      document.addEventListener("DOMContentLoaded", () => {
+        fetchImageData();
+        setupEventListeners();
+        logDebug("应用初始化完成");
+      });
+
+      // 设置事件监听器
+      function setupEventListeners() {
+        // 搜索按钮
+        searchBtn.addEventListener("click", performSearch);
+
+        // 回车键搜索
+        searchInput.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            performSearch();
+          }
+        });
+
+        // 日期筛选
+        dateFilter.addEventListener("change", (e) => {
+          currentDateFilter = e.target.value;
+          currentPage = 1;
+          filterImages();
+          renderGallery();
+          renderPagination();
+          updateStats();
+          logDebug(`设置日期筛选: ${currentDateFilter}`);
+        });
+
+        // 清除日期筛选
+        clearDateFilter.addEventListener("click", () => {
+          dateFilter.value = "";
+          currentDateFilter = "";
+          currentPage = 1;
+          filterImages();
+          renderGallery();
+          renderPagination();
+          updateStats();
+          logDebug("清除日期筛选");
+        });
+
+        // 输入防抖搜索
+        let searchTimeout;
+        searchInput.addEventListener("input", (e) => {
+          clearTimeout(searchTimeout);
+          searchTimeout = setTimeout(() => {
+            currentSearch = e.target.value.trim().toLowerCase();
+            currentPage = 1;
+            filterImages();
+            renderGallery();
+            renderPagination();
+            updateStats();
+          }, 400);
+        });
+
+        // 关闭模态框
+        closeModal.addEventListener("click", () => {
+          imageModal.classList.remove("active");
+        });
+
+        // 点击模态框外部关闭
+        imageModal.addEventListener("click", (e) => {
+          if (e.target === imageModal) {
+            imageModal.classList.remove("active");
+          }
+        });
+
+        // 下载按钮
+        downloadBtn.addEventListener("click", downloadImage);
+
+        // 调试面板切换
+        toggleDebugBtn.addEventListener("click", () => {
+          const isShowing = debugContent.classList.toggle("show");
+          toggleDebugBtn.textContent = isShowing
+            ? "隐藏调试信息"
+            : "显示调试信息";
+        });
+      }
+
+      // 记录调试信息
+      function logDebug(message) {
+        const timestamp = new Date().toLocaleTimeString();
+        const debugEntry = document.createElement("div");
+        debugEntry.innerHTML = `<span style="color:#3498db">[${timestamp}]</span> ${message}`;
+        debugContent.appendChild(debugEntry);
+        debugContent.scrollTop = debugContent.scrollHeight;
+      }
+
+      // 显示通知
+      function showNotification(message, isError = false) {
+        notificationElement.textContent = message;
+        notificationElement.className = "notification";
+        if (isError) {
+          notificationElement.classList.add("error");
+        }
+        notificationElement.classList.add("show");
+
+        setTimeout(() => {
+          notificationElement.classList.remove("show");
+        }, 3000);
+
+        logDebug(`通知: ${message}${isError ? " (错误)" : ""}`);
+      }
+
+      // 获取图片数据
+      function fetchImageData() {
+        isLoading = true;
+        loadingElement.classList.add("visible");
+        logDebug(`开始加载图片数据: ${JSON_INDEX_URL}`);
+
+        // 添加时间戳避免缓存
+        const timestamp = new Date().getTime();
+        const url = `${JSON_INDEX_URL}?t=${timestamp}`;
+
+        fetch(url)
+          .then((response) => {
+            logDebug(`收到响应: 状态码 ${response.status}`);
+
+            if (!response.ok) {
+              throw new Error(`HTTP错误! 状态码: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            logDebug(`成功加载图片数据，共 ${data.length} 张图片`);
+
+            if (!Array.isArray(data)) {
+              throw new Error("图片数据格式错误: 期望数组但收到其他格式");
+            }
+
+            // 检查是否有有效数据
+            if (data.length === 0) {
+              logDebug("警告: 图片数据为空");
+              showNotification("图片数据为空", true);
+            }
+
+            // 修复缩略图路径问题
+            allImages = data.map((img) => {
+              return {
+                ...img,
+                // 使用正确的缩略图路径
+                thumbnail: img.thumbnail,
+              };
+            });
+
+            totalImageCount = allImages.length;
+            filteredImages = [...allImages];
+            totalImagesElement.textContent = totalImageCount.toLocaleString();
+
+            // 初始化渲染
+            filterImages();
+            renderGallery();
+            renderPagination();
+            updateStats();
+
+            isLoading = false;
+            loadingElement.classList.remove("visible");
+
+            // 设置无限滚动
+            setupIntersectionObserver();
+
+            showNotification(`成功加载 ${totalImageCount} 张图片`);
+          })
+          .catch((error) => {
+            console.error("加载图片数据错误:", error);
+            logDebug(`加载图片数据失败: ${error.message}`);
+            isLoading = false;
+            loadingElement.classList.remove("visible");
+            loadingElement.innerHTML = `
+                        <div style="color: var(--accent-color);">
+                            <i class="fas fa-exclamation-triangle"></i> 加载图片数据失败
+                            <p style="margin-top: 10px; font-size: 0.9rem;">${error.message}</p>
+                        </div>
+                        <button id="retryBtn" style="margin-top: 15px; padding: 8px 20px; 
+                            background: var(--primary-color); color: white; border: none; 
+                            border-radius: 30px; cursor: pointer;">
+                            重试
+                        </button>
+                    `;
+
+            document
+              .getElementById("retryBtn")
+              .addEventListener("click", fetchImageData);
+            showNotification("加载图片数据失败，请重试", true);
+          });
+      }
+
+      // 执行搜索
+      function performSearch() {
+        currentSearch = searchInput.value.trim().toLowerCase();
+        currentPage = 1;
+        filterImages();
+        renderGallery();
+        renderPagination();
+        updateStats();
+        logDebug(`执行搜索: "${currentSearch}"`);
+      }
+
+      // 设置 Intersection Observer
+      function setupIntersectionObserver() {
+        logDebug("设置无限滚动观察器");
+        const observer = new IntersectionObserver(
+          (entries) => {
+            if (entries[0].isIntersecting && !isLoading) {
+              if (currentPage * IMAGES_PER_PAGE < filteredImages.length) {
+                logDebug(`滚动加载更多: 第 ${currentPage + 1} 页`);
+                currentPage++;
+                renderGallery();
+                renderPagination();
+                updateStats();
+              }
+            }
+          },
+          {
+            rootMargin: "200px",
+            threshold: 0.01,
+          }
+        );
+
+        observer.observe(sentinelElement);
+      }
+
+      // 过滤图片
+      function filterImages() {
+        if (!currentSearch && !currentDateFilter) {
+          filteredImages = [...allImages];
+        } else {
+          filteredImages = allImages.filter((img) => {
+            // 搜索ID或文件名
+            const matchSearch = currentSearch
+              ? img.id.toString().includes(currentSearch) ||
+                img.filename.toLowerCase().includes(currentSearch)
+              : true;
+
+            // 日期筛选
+            const matchDate = currentDateFilter
+              ? img.date_taken.startsWith(currentDateFilter)
+              : true;
+
+            return matchSearch && matchDate;
+          });
+        }
+
+        updateStats();
+        logDebug(`过滤后图片数量: ${filteredImages.length}`);
+      }
+
+      // 更新统计信息
+      function updateStats() {
+        filteredImagesElement.textContent =
+          filteredImages.length.toLocaleString();
+
+        dateFilterStatus.textContent = currentDateFilter
+          ? currentDateFilter
+          : "未启用";
+
+        dateFilterStatus.style.color = currentDateFilter
+          ? "var(--secondary-color)"
+          : "inherit";
+      }
+
+      // 渲染图片网格
+      function renderGallery() {
+        if (isLoading) return;
+
+        logDebug(`渲染图片网格: 第 ${currentPage} 页`);
+
+        // 计算当前页的数据范围
+        const startIndex = (currentPage - 1) * IMAGES_PER_PAGE;
+        const endIndex = Math.min(
+          startIndex + IMAGES_PER_PAGE,
+          filteredImages.length
+        );
+        const pageImages = filteredImages.slice(startIndex, endIndex);
+
+        // 如果是第一页，清空现有内容
+        if (currentPage === 1) {
+          galleryElement.innerHTML = "";
+        }
+
+        // 添加新图片
+        pageImages.forEach((img) => {
+          const card = document.createElement("div");
+          card.className = "image-card";
+          card.dataset.id = img.id;
+
+          // 构建缩略图URL - 使用正确的路径
+          const thumbnailUrl = `${OSS_BASE_URL}/${img.thumbnail}`;
+          logDebug(`加载缩略图: ${thumbnailUrl}`);
+
+          // 使用DOM创建元素，以便添加重试逻辑
+          const placeholder = document.createElement("div");
+          placeholder.className = "image-placeholder";
+
+          // 创建缩略图元素
+          const thumbnailImg = document.createElement("img");
+          thumbnailImg.className = "thumbnail";
+          thumbnailImg.src = thumbnailUrl;
+          thumbnailImg.alt = img.filename;
+
+          // 添加错误处理
+          let retryCount = 0;
+          thumbnailImg.onerror = function () {
+            retryCount++;
+            if (retryCount <= 2) {
+              // 重试加载（添加时间戳避免缓存）
+              thumbnailImg.src = `${thumbnailUrl}?retry=${retryCount}&t=${Date.now()}`;
+              logDebug(`缩略图重试加载: ${thumbnailUrl} (重试 ${retryCount})`);
+            } else {
+              logDebug(`缩略图加载失败: ${thumbnailUrl}`);
+              // 显示错误信息
+              const errorDiv = document.createElement("div");
+              errorDiv.className = "thumbnail-error";
+              errorDiv.innerHTML = `
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div>缩略图加载失败</div>
+                        `;
+              placeholder.innerHTML = "";
+              placeholder.appendChild(errorDiv);
+            }
+          };
+
+          placeholder.appendChild(thumbnailImg);
+
+          // 创建图片信息区域
+          const imageInfo = document.createElement("div");
+          imageInfo.className = "image-info";
+
+          const imageTitle = document.createElement("div");
+          imageTitle.className = "image-title";
+
+          const titleText = document.createElement("span");
+          titleText.textContent =
+            img.filename.length > 20
+              ? img.filename.substring(0, 20) + "..."
+              : img.filename;
+
+          const imageId = document.createElement("span");
+          imageId.className = "image-id";
+          imageId.textContent = `#${img.id}`;
+
+          imageTitle.appendChild(titleText);
+          imageTitle.appendChild(imageId);
+
+          const imageMeta = document.createElement("div");
+          imageMeta.className = "image-meta";
+
+          const dimensions = document.createElement("span");
+          dimensions.textContent = `${img.width}×${img.height}`;
+
+          const size = document.createElement("span");
+          size.textContent = formatFileSize(img.size);
+
+          const date = document.createElement("span");
+          date.className = "image-date";
+          date.textContent = img.date_taken.split("T")[0];
+
+          imageMeta.appendChild(dimensions);
+          imageMeta.appendChild(size);
+          imageMeta.appendChild(date);
+
+          imageInfo.appendChild(imageTitle);
+          imageInfo.appendChild(imageMeta);
+
+          // 组装卡片
+          card.appendChild(placeholder);
+          card.appendChild(imageInfo);
+
+          // 添加点击事件
+          card.addEventListener("click", () => showImageDetail(img));
+
+          galleryElement.appendChild(card);
+        });
+      }
+
+      // 显示图片详情
+      function showImageDetail(img) {
+        logDebug(`显示图片详情: ID ${img.id}`);
+        modalTitle.textContent = img.filename;
+        detailId.textContent = `#${img.id}`;
+        detailFilename.textContent = img.filename;
+        detailDimensions.textContent = `${img.width} × ${img.height} 像素`;
+        detailSize.textContent = formatFileSize(img.size);
+        detailDate.textContent = img.date_taken.split("T")[0] || "未知";
+
+        // 设置下载链接
+        downloadBtn.dataset.filename = img.filename;
+
+        // 显示加载指示器
+        modalImage.innerHTML = '<div class="loader"></div>';
+
+        // 构建原图URL
+        const imageUrl = `${ORIGINAL_IMAGES_URL}${img.filename}`;
+        logDebug(`加载原图: ${imageUrl}`);
+
+        // 加载原图
+        const imgElement = document.createElement("img");
+        imgElement.src = imageUrl;
+        imgElement.alt = img.filename;
+        imgElement.onload = () => {
+          logDebug(`原图加载成功: ${imageUrl}`);
+          modalImage.innerHTML = "";
+          modalImage.appendChild(imgElement);
+        };
+        imgElement.onerror = () => {
+          logDebug(`原图加载失败: ${imageUrl}`);
+          modalImage.innerHTML = `<div style="text-align: center; padding: 20px; color: #e74c3c;">
+                    <i class="fas fa-exclamation-triangle fa-3x"></i>
+                    <p style="margin-top: 15px;">图片加载失败</p>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">${imageUrl}</p>
+                </div>`;
+        };
+
+        imageModal.classList.add("active");
+      }
+
+      // 下载图片
+      function downloadImage() {
+        const filename = downloadBtn.dataset.filename;
+        if (!filename) return;
+
+        const imageUrl = `${ORIGINAL_IMAGES_URL}${filename}`;
+        logDebug(`下载图片: ${imageUrl}`);
+
+        const link = document.createElement("a");
+        link.href = imageUrl;
+        link.download = filename;
+        link.target = "_blank";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        showNotification(`开始下载: ${filename}`);
+      }
+
+      // 渲染分页控件
+      function renderPagination() {
+        const totalPages = Math.ceil(filteredImages.length / IMAGES_PER_PAGE);
+        logDebug(`渲染分页控件: 共 ${totalPages} 页`);
+
+        if (totalPages <= 1) {
+          paginationElement.innerHTML = "";
+          return;
+        }
+
+        // 清空现有分页
+        paginationElement.innerHTML = "";
+
+        // 添加分页按钮
+        const maxVisiblePages = 5;
+        let startPage = Math.max(
+          1,
+          currentPage - Math.floor(maxVisiblePages / 2)
+        );
+        let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+        if (endPage - startPage + 1 < maxVisiblePages) {
+          startPage = Math.max(1, endPage - maxVisiblePages + 1);
+        }
+
+        // 上一页按钮
+        if (currentPage > 1) {
+          const prevBtn = document.createElement("button");
+          prevBtn.className = "page-btn";
+          prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+          prevBtn.addEventListener("click", () => {
+            currentPage--;
+            renderGallery();
+            renderPagination();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+          paginationElement.appendChild(prevBtn);
+        }
+
+        // 页码按钮
+        for (let i = startPage; i <= endPage; i++) {
+          const btn = document.createElement("button");
+          btn.className = `page-btn ${i === currentPage ? "active" : ""}`;
+          btn.textContent = i;
+          btn.addEventListener("click", () => {
+            currentPage = i;
+            renderGallery();
+            renderPagination();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+          paginationElement.appendChild(btn);
+        }
+
+        // 下一页按钮
+        if (currentPage < totalPages) {
+          const nextBtn = document.createElement("button");
+          nextBtn.className = "page-btn";
+          nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+          nextBtn.addEventListener("click", () => {
+            currentPage++;
+            renderGallery();
+            renderPagination();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+          paginationElement.appendChild(nextBtn);
+        }
+      }
+
+      // 格式化文件大小
+      function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + " B";
+        else if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+        else return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+      }
+    </script>
+  </body>
+</html>
