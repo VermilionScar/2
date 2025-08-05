@@ -1,0 +1,25 @@
+@keyframes text-style-1 {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.text-style-1 {
+  font-size: 30px;
+  background-image: linear-gradient(
+    to right,
+    rgb(247, 69, 69),
+    rgb(133, 255, 214),
+    rgb(6, 31, 255),
+    rgb(133, 255, 214),
+    rgb(247, 69, 69)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 100%;
+  color: transparent;
+  animation: text-style-1 5s infinite linear;
+}
